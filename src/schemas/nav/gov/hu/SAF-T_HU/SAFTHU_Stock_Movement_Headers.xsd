@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" id="SAFT-HU"
-	xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0"
-	targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" version="1.00"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
+<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
+<xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
 	<!-- -->
-
 	<xs:element name="AuditFile">
 		<xs:complexType>
 			<xs:sequence>
@@ -86,125 +83,68 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 						</xs:complexContent>
 					</xs:complexType>
 				</xs:element>
-				<xs:element minOccurs="1" name="TransactionalData">
+				<xs:element name="TransactionalData">
 					<xs:annotation>
 						<xs:documentation xml:lang="hu">Tranzakciós adatok és jelentések</xs:documentation>
 						<xs:documentation xml:lang="en">Transactional data and reports</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element minOccurs="0" maxOccurs="1" name="StockMovementHeaders">
+							<xs:element name="StockMovementHeaders" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation xml:lang="hu">Árukészlet mozgás dokumentumok fejlécei</xs:documentation>
 									<xs:documentation xml:lang="en">Stock movements document headers</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="NumberOfMovementHeaders"
-											type="xs:nonNegativeInteger">
+										<xs:element name="NumberOfMovementHeaders" type="xs:nonNegativeInteger">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">Árukészlet mozgás fejlécek száma az adatszolgáltatással érintett időszakban</xs:documentation>
 												<xs:documentation xml:lang="en">Number of movement headers in the selected period of the header of the file.</xs:documentation>
 											</xs:annotation>
 										</xs:element>
-										<xs:element maxOccurs="unbounded" name="Header"
-											minOccurs="1">
+										<xs:element name="Header" maxOccurs="unbounded">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">Árukészlet mozgás fejléceinek adatai</xs:documentation>
 												<xs:documentation xml:lang="en">Information of the header of the Stock Movements.</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-												<xs:element name="MovementReference"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Mozgás egyedi azonosítója</xs:documentation>
-												<xs:documentation xml:lang="en">Unique reference id to the movement</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="MovementDate" type="xs:date">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Dokumentum dátuma</xs:documentation>
-												<xs:documentation xml:lang="en">Document Date</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="0"
-												name="MovementPostingDate" type="xs:date">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Árukészlet mozgás főkönyvi feladásának dátuma</xs:documentation>
-												<xs:documentation xml:lang="en">Date of posting of the movement on the general ledger</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="0" name="TaxPointDate"
-												type="xs:date">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">A termékértékesítés teljesítésének időpontja</xs:documentation>
-												<xs:documentation xml:lang="en">Tax Point Date</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-
-												<xs:element name="MovementType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">A mozgás típusa. Opciók:
-„OD" - Egyéb csökkenés,
-„OI" - Egyéb növekedés,
-„OU" - Saját felhasználás,
-„PO" - Beszerzés,
-„PR" - Gyártás,
-„RE" - Visszáru,
-„RJ" - Selejtezés,
-„SA" - Értékesítés,
-„TR" - Átsorolás</xs:documentation>
-												<xs:documentation xml:lang="en">Stock movement type. Options:
-"OD" - Other decrease,
-"OI" - Other increase,
-"OU" - Own use,
-"PO" - Purchase,
-"PR" - Producement,
-"RE" - Return,
-"RJ" - Reject,
-"SA" - Sale,
-"TR" - Transfer</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="SAFTcodeType">
-												<xs:enumeration value="OD"/>
-												<xs:enumeration value="OI"/>
-												<xs:enumeration value="OU"/>
-												<xs:enumeration value="PO"/>
-												<xs:enumeration value="PR"/>
-												<xs:enumeration value="RE"/>
-												<xs:enumeration value="RJ"/>
-												<xs:enumeration value="SA"/>
-												<xs:enumeration value="TR"/>
-												</xs:restriction>
-												</xs:simpleType>
-												</xs:element>
-												<xs:element minOccurs="1" name="SourceID"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Adatbevitelt végző személy vagy rendszer azonosítója.</xs:documentation>
-												<xs:documentation xml:lang="en">Details of the person or application that entered the transaction.
+													<xs:element name="SystemID" type="SAFTmiddle1textType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Egyedi azonosító, melyet a rendszer a dokumentumnak adott.</xs:documentation>
+															<xs:documentation xml:lang="en">Unique number created by the system for the document</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="MovementDate" type="xs:date">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Dokumentum dátuma</xs:documentation>
+															<xs:documentation xml:lang="en">Document Date</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="MovementPostingDate" type="xs:date" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Árukészlet mozgás főkönyvi feladásának dátuma</xs:documentation>
+															<xs:documentation xml:lang="en">Date of posting of the movement on the general ledger</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="SourceID" type="SAFTmiddle1textType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Adatbevitelt végző személy vagy rendszer azonosítója.</xs:documentation>
+															<xs:documentation xml:lang="en">Details of the person or application that entered the transaction.
 														Eg. Username</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="1" name="SystemID"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Egyedi azonosító, melyet a rendszer a dokumentumnak adott.</xs:documentation>
-												<xs:documentation xml:lang="en">Unique number created by the system for the document</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="0" name="DocumentReference">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Árukészlet mozgást alátámasztó dokumentum</xs:documentation>
-												<xs:documentation xml:lang="en">Document reference for justifying the movement of stock.</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:sequence>
-												<xs:element name="DocumentType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Dokumentum típusa. Opciók:
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="DocumentReference" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Árukészlet mozgást alátámasztó dokumentum</xs:documentation>
+															<xs:documentation xml:lang="en">Document reference for justifying the movement of stock.</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="DocumentType">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Dokumentum típusa. Opciók:
 „DN" - Szállítólevél,
 „DP" - Leértékelési jegyzőkönyv,
 „DR" - Káreseti jegyzőkönyv,
@@ -217,7 +157,7 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 „SU" - Azonnali felhasználásra beszerzett készlet bizonylat,
 „TD" - Készlet átadás-átvételi bizonylat
 												</xs:documentation>
-												<xs:documentation xml:lang="en">Document Type. Options:
+																		<xs:documentation xml:lang="en">Document Type. Options:
 "DN" - Delivery note,
 "DP" - Devaluation protocol,
 "DR" - Damage record,
@@ -230,43 +170,46 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 "SU" - Stock for immidiate use,
 "TD" - Stock transfer document
 												</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="SAFTcodeType">
-												<xs:enumeration value="DN"/>
-												<xs:enumeration value="DP"/>
-												<xs:enumeration value="DR"/>
-												<xs:enumeration value="IC"/>
-												<xs:enumeration value="ME"/>
-												<xs:enumeration value="MI"/>
-												<xs:enumeration value="OT"/>
-												<xs:enumeration value="RD"/>
-												<xs:enumeration value="SP"/>
-												<xs:enumeration value="SU"/>
-												<xs:enumeration value="TD"/>
-												</xs:restriction>
-												</xs:simpleType>
-												</xs:element>
-												<xs:element name="DocumentNumber"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Dokumentum hivatkozási száma</xs:documentation>
-												<xs:documentation xml:lang="en">Document reference number</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="0" name="DocumentLine"
-												type="SAFTshorttextType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Hivatkozott dokumentum tételsorának száma.</xs:documentation>
-												<xs:documentation xml:lang="en">Line number of the document</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												</xs:sequence>
-												</xs:complexType>
-												</xs:element>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="SAFTcodeType">
+																			<xs:enumeration value="DN"/>
+																			<xs:enumeration value="DP"/>
+																			<xs:enumeration value="DR"/>
+																			<xs:enumeration value="IC"/>
+																			<xs:enumeration value="ME"/>
+																			<xs:enumeration value="MI"/>
+																			<xs:enumeration value="OT"/>
+																			<xs:enumeration value="RD"/>
+																			<xs:enumeration value="SP"/>
+																			<xs:enumeration value="SU"/>
+																			<xs:enumeration value="TD"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="DocumentNumber" type="SAFTmiddle1textType">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Dokumentum hivatkozási száma</xs:documentation>
+																		<xs:documentation xml:lang="en">Document reference number</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="DocumentLine" type="SAFTshorttextType" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Hivatkozott dokumentum tételsorának száma.</xs:documentation>
+																		<xs:documentation xml:lang="en">Line number of the document</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="Description" type="SAFTlongtextType" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Dokumentum megnevezése.</xs:documentation>
+																		<xs:documentation xml:lang="en">Description of the document</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
 												</xs:sequence>
 											</xs:complexType>
-
 										</xs:element>
 									</xs:sequence>
 								</xs:complexType>

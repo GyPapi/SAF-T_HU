@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" id="SAFT-HU"
-	xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0"
-	targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" version="1.00"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
+<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
+<xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
 	<!-- -->
-
 	<xs:element name="AuditFile">
 		<xs:complexType>
 			<xs:sequence>
@@ -86,14 +83,14 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 						</xs:complexContent>
 					</xs:complexType>
 				</xs:element>
-				<xs:element minOccurs="1" name="TransactionalData">
+				<xs:element name="TransactionalData">
 					<xs:annotation>
 						<xs:documentation xml:lang="hu">Tranzakciós adatok és jelentések</xs:documentation>
 						<xs:documentation xml:lang="en">Transactional data and reports</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element minOccurs="0" maxOccurs="1" name="PaymentLines">
+							<xs:element name="PaymentLines" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation xml:lang="hu">Fizetési sor.</xs:documentation>
 									<xs:documentation xml:lang="en">Payment Lines structure
@@ -101,8 +98,7 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="NumberOfLineEntries"
-											type="xs:nonNegativeInteger">
+										<xs:element name="NumberOfLineEntries" type="xs:nonNegativeInteger">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">A bejegyzések száma a fizetési sorokban</xs:documentation>
 												<xs:documentation xml:lang="en">Number of entries on the payments lines
@@ -121,104 +117,126 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 												<xs:documentation>The total of all credit amounts of the payments lines during the Selectionperiod on the file header's default currency.</xs:documentation>
 											</xs:annotation>
 										</xs:element>
-
-										<xs:element maxOccurs="unbounded" name="Line">
+										<xs:element name="Line" maxOccurs="unbounded">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">A kifizetések sorainak információi.</xs:documentation>
 												<xs:documentation xml:lang="en">Information of the line of the Payments.</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-
-												<xs:element name="PaymentRefNo"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Fizetés egyedi azonosítója a fejéc adata alapján. (FK- PaymentHeaders.Header.PaymentRedNo)</xs:documentation>
-												<xs:documentation xml:lang="en">(FK- PaymentHeaders.Header.PaymentRedNo)
+													<xs:element name="PaymentRefNo" type="SAFTmiddle1textType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Fizetés egyedi azonosítója a fejéc adata alapján. (FK- PaymentHeaders.Header.PaymentRedNo)</xs:documentation>
+															<xs:documentation xml:lang="en">(FK- PaymentHeaders.Header.PaymentRedNo)
 A unique number assigned to the payment header.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="0" name="LineNumber"
-												type="SAFTshorttextType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Fizetési sor sorszáma.</xs:documentation>
-												<xs:documentation xml:lang="en">Number of the payment line</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="1" name="SourceDocumentID"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Fizetési sorhoz kapcsolódó dokumentum sorszáma (pl. számla sorszáma).</xs:documentation>
-												<xs:documentation xml:lang="en">The source document to which the line relates (eg. invoice number)</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="0" name="AccountID"
-												type="SAFTmiddle2textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Főkönyvi számlaszám, beleértve az alszámla számát is. Több szintet is tartalmazhat.</xs:documentation>
-												<xs:documentation xml:lang="en">General ledger account number including sub-account number. It may contain several levels.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element maxOccurs="unbounded" minOccurs="0"
-												name="Analysis" type="AnalysisStructure">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Főkönyvi könyvelés elemzési azonosítója</xs:documentation>
-												<xs:documentation xml:lang="en">General ledger analysis codes</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="0" name="CustomerID"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Vevő egyedi azonosítója.</xs:documentation>
-												<xs:documentation xml:lang="en">Unique Customer id</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="0" name="SupplierID"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Szállító egyedi azonosítója</xs:documentation>
-												<xs:documentation xml:lang="en">Supplier unique id</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="0" name="Description"
-												type="SAFTlongtextType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Fizetési sor leírása.</xs:documentation>
-												<xs:documentation xml:lang="en">Description of the payment line.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="DebitCreditIndicator">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Tartozik vagy követel adat jelzése. A bejegyzésnek a főkönyvi könyvelés tételhez kell kapcsolódnia. Lehetséges értékei:
-												D - Tartozik
-												C - Követel
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="LineNumber" type="SAFTshorttextType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Fizetési sor sorszáma.</xs:documentation>
+															<xs:documentation xml:lang="en">Number of the payment line</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="SourceDocumentID" type="SAFTmiddle1textType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Fizetési sorhoz kapcsolódó dokumentum sorszáma (pl. számla sorszáma).</xs:documentation>
+															<xs:documentation xml:lang="en">The source document to which the line relates (eg. invoice number)</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="AccountID" type="SAFTmiddle2textType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Főkönyvi számlaszám, beleértve az alszámla számát is. Több szintet is tartalmazhat.</xs:documentation>
+															<xs:documentation xml:lang="en">General ledger account number including sub-account number. It may contain several levels.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Analysis" type="AnalysisStructure" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Főkönyvi könyvelés elemzési azonosítója</xs:documentation>
+															<xs:documentation xml:lang="en">General ledger analysis codes</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:choice>
+														<xs:element name="CustomerID" type="SAFTmiddle1textType" minOccurs="0">
+															<xs:annotation>
+																<xs:documentation xml:lang="hu">Vevő egyedi azonosítója.</xs:documentation>
+																<xs:documentation xml:lang="en">Unique Customer id</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+														<xs:element name="SupplierID" type="SAFTmiddle1textType" minOccurs="0">
+															<xs:annotation>
+																<xs:documentation xml:lang="hu">Szállító egyedi azonosítója</xs:documentation>
+																<xs:documentation xml:lang="en">Supplier unique id</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+														<xs:element name="PartnerID" type="SAFTmiddle1textType" minOccurs="0">
+															<xs:annotation>
+																<xs:documentation>Apartner egyedi azonosítója</xs:documentation>
+															</xs:annotation>
+														</xs:element>
+													</xs:choice>
+													<xs:element name="Description" type="SAFTlongtextType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Fizetési sor leírása.</xs:documentation>
+															<xs:documentation xml:lang="en">Description of the payment line.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="DebitCreditIndicator">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Tartozik vagy követel adat jelzése. A bejegyzésnek a főkönyvi könyvelés tételhez kell kapcsolódnia. Lehetséges értékei:
+D - Tartozik
+C - Követel
 												</xs:documentation>
-												<xs:documentation xml:lang="en">Indicates whether the amounts on line-level are debit or credit amounts. Entry must correspond to entry reflected in General Ledger Entry. Signing of lineamounts is relative to this indicator. E.g. a return can lead to a negative amount.
+															<xs:documentation xml:lang="en">Indicates whether the amounts on line-level are debit or credit amounts. Entry must correspond to entry reflected in General Ledger Entry. Signing of lineamounts is relative to this indicator. E.g. a return can lead to a negative amount.
 D - debit 
 C - credit</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="SAFTcodeType">
-												<xs:enumeration value="D"/>
-												<xs:enumeration value="C"/>
-												</xs:restriction>
-												</xs:simpleType>
-												</xs:element>
-												<xs:element name="PaymentLineAmount"
-												type="AmountStructure">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Fizetési sor összege</xs:documentation>
-												<xs:documentation xml:lang="en">Payment line amount</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element maxOccurs="unbounded" minOccurs="0"
-												name="TaxInformation"
-												type="TaxInformationStructure">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Adózási adatok</xs:documentation>
-												<xs:documentation xml:lang="en">Tax Information structure</xs:documentation>
-												</xs:annotation>
-												</xs:element>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="SAFTcodeType">
+																<xs:enumeration value="D"/>
+																<xs:enumeration value="C"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="PaymentLineAmount" type="SAFTHUInvoiceAmountStructure">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Fizetési sor összege</xs:documentation>
+															<xs:documentation xml:lang="en">Payment line amount</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="PaymentMethod" type="SAFTHUPaymentMethodType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Fizetési mód.
+</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Settlements" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Elszámolások</xs:documentation>
+															<xs:documentation xml:lang="en">Settlements</xs:documentation>
+														</xs:annotation>
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="Settlement" type="SAFTHUSettlementStructure" maxOccurs="unbounded">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Elszámolás</xs:documentation>
+																		<xs:documentation xml:lang="en">Settlement</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="SourceID" type="SAFTmiddle1textType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Az adatbevitelt végző személy vagy rendszer azonosítója.</xs:documentation>
+															<xs:documentation xml:lang="en">Details of the person or application that entered the transaction.
+														Eg. Username</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="TransactionID" type="SAFTmiddle2textType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation>A könyvelési tranzakció egyedi azonosítója</xs:documentation>
+														</xs:annotation>
+													</xs:element>
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>

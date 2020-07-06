@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" id="SAFT-HU"
-	xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0"
-	targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" version="1.00"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
+<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
+<xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
 	<!-- -->
-
 	<xs:element name="AuditFile">
 		<xs:complexType>
 			<xs:sequence>
@@ -86,148 +83,102 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 						</xs:complexContent>
 					</xs:complexType>
 				</xs:element>
-				<xs:element minOccurs="1" name="TransactionalData">
+				<xs:element name="TransactionalData">
 					<xs:annotation>
 						<xs:documentation xml:lang="hu">Tranzakciós adatok és jelentések</xs:documentation>
 						<xs:documentation xml:lang="en">Transactional data and reports</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element maxOccurs="1" minOccurs="0"
-								name="GeneralLedgerEntriesHeaders">
+							<xs:element name="GeneralLedgerEntriesHeaders" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation xml:lang="hu">Könyvelési tranzakciók</xs:documentation>
 									<xs:documentation xml:lang="en">General ledger Header Transactions</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="NumberOfHeaderEntries"
-											type="xs:nonNegativeInteger">
+										<xs:element name="NumberOfHeaderEntries" type="xs:nonNegativeInteger">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">Főkönyvi tranzakciók fejlécének száma</xs:documentation>
 												<xs:documentation xml:lang="en">Number of entries on the general ledger headers</xs:documentation>
 											</xs:annotation>
 										</xs:element>
-										<xs:element maxOccurs="unbounded" name="Header">
+										<xs:element name="Header" maxOccurs="unbounded">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">Főkönyvi tranzakciók fejlécének adatai.</xs:documentation>
 												<xs:documentation xml:lang="en">Information of the header of the general ledger entry.</xs:documentation>
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-												<xs:element name="JournalID"
-												type="SAFTshorttextType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">A napló azonosítója a Journals struktúra alapján.</xs:documentation>
-												<xs:documentation xml:lang="en">Journal Id that should be on the Journals structure.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="TransactionID"
-												type="SAFTmiddle2textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Könyvelési tranzakció egyedi azonosító</xs:documentation>
-												<xs:documentation xml:lang="en">A unique number assigned to the general ledger entry</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="Period"
-												type="xs:nonNegativeInteger">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Könyvelési időszak (hónap)</xs:documentation>
-												<xs:documentation xml:lang="en">Accounting Period (month) of the transaction
+													<xs:element name="JournalID" type="SAFTshorttextType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">A napló azonosítója a Journals struktúra alapján.</xs:documentation>
+															<xs:documentation xml:lang="en">Journal Id that should be on the Journals structure.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="TransactionID" type="SAFTmiddle2textType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Könyvelési tranzakció egyedi azonosító</xs:documentation>
+															<xs:documentation xml:lang="en">A unique number assigned to the general ledger entry</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Period" type="SAFTshorttextType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Könyvelési időszak (hónap)</xs:documentation>
+															<xs:documentation xml:lang="en">Accounting Period (month) of the transaction
 </xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="PeriodYear">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Könyvelési időszak (év).</xs:documentation>
-												<xs:documentation xml:lang="en">Accounting Period (Year) of the transaction</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="xs:nonNegativeInteger">
-												<xs:minInclusive value="1970"/>
-												<xs:maxInclusive value="2100"/>
-												</xs:restriction>
-												</xs:simpleType>
-												</xs:element>
-												<xs:element name="TransactionDate" type="xs:date">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Tranzakció dátuma, amely a főkönyvi feladást keletkeztető dokumentum dátuma</xs:documentation>
-												<xs:documentation xml:lang="en">Transaction date, meaning the date of the document that originates the general ledger posting.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="1" name="SourceID"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Rögzítést végző személy vagy rendszer adatai.</xs:documentation>
-												<xs:documentation xml:lang="en">Details of the person or application that entered the transaction.
-Eg. Username</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="1" name="TransactionType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Tranzakció típusa:
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="PeriodYear">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Könyvelési időszak (év).</xs:documentation>
+															<xs:documentation xml:lang="en">Accounting Period (Year) of the transaction</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="xs:nonNegativeInteger">
+																<xs:minInclusive value="1970"/>
+																<xs:maxInclusive value="2100"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="TransactionDate" type="xs:date">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Tranzakció dátuma, amely a főkönyvi feladást keletkeztető dokumentum dátuma</xs:documentation>
+															<xs:documentation xml:lang="en">Transaction date, meaning the date of the document that originates the general ledger posting.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="TransactionType">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Tranzakció típusa:
 „NO" - Normál,
-„RT" - Adóelszámoláshoz kapcsolódó tételek,
-„CR" - Nyitó/záró, rendező tételek
-„AT" - Korrekciós tételek</xs:documentation>
-												<xs:documentation xml:lang="en">Type of transaction:
+„OP" - Nyitó tételek
+„CL" - Záró, rendező tételek</xs:documentation>
+															<xs:documentation xml:lang="en">Type of transaction:
 "NO" - Normal,
 "RT" - Regularizations in the taxation period,
 "CR" - Clearance of results,
 "AT" - Adjustments Transactions</xs:documentation>
-												</xs:annotation>
-												<xs:simpleType>
-												<xs:restriction base="SAFTcodeType">
-												<xs:enumeration value="NO"/>
-												<xs:enumeration value="RT"/>
-												<xs:enumeration value="CR"/>
-												<xs:enumeration value="AT"/>
-												</xs:restriction>
-												</xs:simpleType>
-												</xs:element>
-												<xs:element name="Description"
-												type="SAFTlongtextType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Tranzakció leírása.</xs:documentation>
-												<xs:documentation xml:lang="en">Transaction Description</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="SystemEntryDate"
-												type="xs:dateTime">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Számviteli rendszerben történő rögzítés dátuma és időpontja</xs:documentation>
-												<xs:documentation xml:lang="en">Date and time when the transaction was entered in the accounting system.</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="GLPostingDate" type="xs:date">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Könyvelés feladásának dátuma</xs:documentation>
-												<xs:documentation xml:lang="en">Posting date of on the general ledger entry</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xsd:choice minOccurs="0">
-												<xs:element minOccurs="0" name="CustomerID"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Vevő egyedi azonosítója</xs:documentation>
-												<xs:documentation xml:lang="en">Unique code for a Costumer</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element minOccurs="0" name="SupplierID"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Szállító egyedi azonosítója</xs:documentation>
-												<xs:documentation xml:lang="en">Unique code for a Supplier</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												</xsd:choice>
-												<xs:element minOccurs="1" name="SystemID"
-												type="SAFTshorttextType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Dokumentum egyedi azonosítója, melyet a rendszer generál (belső nyilvántartási szám).</xs:documentation>
-												<xs:documentation xml:lang="en">Unique number created by the system for the document</xs:documentation>
-												</xs:annotation>
-												</xs:element>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="SAFTcodeType">
+																<xs:enumeration value="NO"/>
+																<xs:enumeration value="OP"/>
+																<xs:enumeration value="CL"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Description" type="SAFTlongtextType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Tranzakció leírása.</xs:documentation>
+															<xs:documentation xml:lang="en">Transaction Description</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="SystemID" type="SAFTshorttextType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Dokumentum egyedi azonosítója, melyet a rendszer generál (belső nyilvántartási szám).</xs:documentation>
+															<xs:documentation xml:lang="en">Unique number created by the system for the document</xs:documentation>
+														</xs:annotation>
+													</xs:element>
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>

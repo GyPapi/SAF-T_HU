@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" id="SAFT-HU"
-	xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0"
-	targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" version="1.00"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
+<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
+<xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
 	<!-- -->
-
 	<xs:element name="AuditFile">
 		<xs:complexType>
 			<xs:sequence>
@@ -86,7 +83,7 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 						</xs:complexContent>
 					</xs:complexType>
 				</xs:element>
-				<xs:element minOccurs="1" name="TransactionalData">
+				<xs:element name="TransactionalData">
 					<xs:annotation>
 						<xs:documentation xml:lang="hu">Tranzakciós adatok és jelentések</xs:documentation>
 						<xs:documentation xml:lang="en">Transactional data and reports</xs:documentation>
@@ -100,66 +97,17 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="NumberOfHeaderEntries"
-											type="xs:nonNegativeInteger">
+										<xs:element name="NumberOfHeaderEntries" type="xs:nonNegativeInteger">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">A bejövő számlák fejléceinek száma az adatszolgáltatással érintett időszak adataiban</xs:documentation>
 												<xs:documentation xml:lang="en">Number of purchase header invoices entries in the selected period of the header of the file</xs:documentation>
 											</xs:annotation>
 										</xs:element>
-
-
-										<xs:element maxOccurs="unbounded" name="Header">
+										<xs:element name="Header" type="SAFTHUPurchaseInvoiceStructure" maxOccurs="unbounded">
 											<xs:annotation>
 												<xs:documentation xml:lang="hu">Vásárlással kapcsolatos dokumentumok fejléc információja</xs:documentation>
 												<xs:documentation xml:lang="en">Purchase documents header information</xs:documentation>
 											</xs:annotation>
-											<xs:complexType>
-												<xs:complexContent>
-												<xs:extension base="SAFTHUInvoiceStructureHeader">
-												<xs:sequence>
-												<xs:element minOccurs="1" name="SupplierInfo">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Szállító adatai</xs:documentation>
-												<xs:documentation>Supplier data</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-												<xs:sequence>
-
-												<xs:element name="SupplierID"
-												type="SAFTmiddle1textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Szállító egyedi azonosítója</xs:documentation>
-												<xs:documentation xml:lang="en">Unique code for the supplier</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												<xs:element name="Name" type="SAFTmiddle2textType">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Szállítónév</xs:documentation>
-												<xs:documentation xml:lang="en">Name of the supplier</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-
-												<xs:element name="BillingAddress"
-												type="SAFTHUAddressStructure">
-												<xs:annotation>
-												<xs:documentation xml:lang="hu">Szállító címe</xs:documentation>
-												<xs:documentation xml:lang="en">Supplier address</xs:documentation>
-												</xs:annotation>
-												</xs:element>
-												</xs:sequence>
-												</xs:complexType>
-												</xs:element>
-
-												</xs:sequence>
-
-
-												</xs:extension>
-
-												</xs:complexContent>
-											</xs:complexType>
-
-
 										</xs:element>
 									</xs:sequence>
 								</xs:complexType>
