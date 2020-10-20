@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
-<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
 <xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
@@ -34,7 +33,7 @@
 												„TR” - fizetési adatok, 
 												„PS” - készlet adatok,
 												„MG” - készletmozgás adatok,
-												„AS” - gazdasági események adatai, 
+												„AT” - gazdasági események adatai, 
 												„VA” - ÁFA analitika,
 												„RD" - egyéb jelentési adatok</xs:documentation>
 											<xs:documentation xml:lang="en">Type of content that the file contains. Options: 
@@ -110,10 +109,22 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
+													<xs:element name="TransactionID" type="SAFTmiddle2textType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Könyvelési tranzakció egyedi azonosítója </xs:documentation>
+															<xs:documentation xml:lang="en">Unique number asigned to the general ledger entry.</xs:documentation>
+														</xs:annotation>
+													</xs:element>
 													<xs:element name="SystemID" type="SAFTmiddle1textType">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Egyedi azonosító, melyet a rendszer a dokumentumnak adott.</xs:documentation>
 															<xs:documentation xml:lang="en">Unique number created by the system for the document</xs:documentation>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Period" type="SAFTshorttextType" minOccurs="0">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Könyvelési időszak</xs:documentation>
+															<xs:documentation xml:lang="en">Accounting Period</xs:documentation>
 														</xs:annotation>
 													</xs:element>
 													<xs:element name="MovementDate" type="xs:date">
@@ -156,7 +167,7 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 „SP" - Selejtezési jegyzőkönyv,
 „SU" - Azonnali felhasználásra beszerzett készlet bizonylat,
 „TD" - Készlet átadás-átvételi bizonylat
-												</xs:documentation>
+„ST” – Sztornó bizonylat 												</xs:documentation>
 																		<xs:documentation xml:lang="en">Document Type. Options:
 "DN" - Delivery note,
 "DP" - Devaluation protocol,
@@ -169,7 +180,7 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 "SP" - Scrapping protocol,
 "SU" - Stock for immidiate use,
 "TD" - Stock transfer document
-												</xs:documentation>
+„ST” – Storno document												</xs:documentation>
 																	</xs:annotation>
 																	<xs:simpleType>
 																		<xs:restriction base="SAFTcodeType">
@@ -184,6 +195,12 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 																			<xs:enumeration value="SP"/>
 																			<xs:enumeration value="SU"/>
 																			<xs:enumeration value="TD"/>
+																			<xs:enumeration value="ST">
+																				<xs:annotation>
+																					<xs:documentation xml:lang="hu">Sztornó bizonylat </xs:documentation>
+																					<xs:documentation xml:lang="en">Storno document</xs:documentation>
+																				</xs:annotation>
+																			</xs:enumeration>
 																		</xs:restriction>
 																	</xs:simpleType>
 																</xs:element>

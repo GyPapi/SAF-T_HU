@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
-<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
 <xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
@@ -34,7 +33,7 @@
 												„TR” - fizetési adatok, 
 												„PS” - készlet adatok,
 												„MG” - készletmozgás adatok,
-												„AS” - gazdasági események adatai, 
+												„AT” - gazdasági események adatai, 
 												„VA” - ÁFA analitika,
 												„RD" - egyéb jelentési adatok</xs:documentation>
 											<xs:documentation xml:lang="en">Type of content that the file contains. Options: 
@@ -124,9 +123,8 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 													</xs:element>
 													<xs:element name="Period" type="SAFTshorttextType">
 														<xs:annotation>
-															<xs:documentation xml:lang="hu">Könyvelési időszak (hónap)</xs:documentation>
-															<xs:documentation xml:lang="en">Accounting Period (month) of the transaction
-</xs:documentation>
+															<xs:documentation xml:lang="hu">Könyvelési időszak</xs:documentation>
+															<xs:documentation xml:lang="en">Accounting Period</xs:documentation>
 														</xs:annotation>
 													</xs:element>
 													<xs:element name="PeriodYear">
@@ -154,10 +152,10 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 „OP" - Nyitó tételek
 „CL" - Záró, rendező tételek</xs:documentation>
 															<xs:documentation xml:lang="en">Type of transaction:
-"NO" - Normal,
-"RT" - Regularizations in the taxation period,
-"CR" - Clearance of results,
-"AT" - Adjustments Transactions</xs:documentation>
+„NO” – Normal,
+„OP” – Opening transactions,
+„CL” – Closing transactions.
+</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
 															<xs:restriction base="SAFTcodeType">
@@ -178,6 +176,34 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 															<xs:documentation xml:lang="hu">Dokumentum egyedi azonosítója, melyet a rendszer generál (belső nyilvántartási szám).</xs:documentation>
 															<xs:documentation xml:lang="en">Unique number created by the system for the document</xs:documentation>
 														</xs:annotation>
+													</xs:element>
+													<xs:element name="GroupingLedgerIndicator">
+														<xs:annotation>
+															<xs:documentation xml:lang="hu">Csoportos könyvelés jelölő, a tranzakcióhoz tartozik-e csoportos könyvelés kimutatás.</xs:documentation>
+															<xs:documentation xml:lang="en">Indicator of the grouping ledger, if there is a Grouping Ledger report for the transaction.</xs:documentation>
+														</xs:annotation>
+														<xs:simpleType>
+															<xs:restriction base="SAFTcodeType">
+																<xs:enumeration value="NO">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Nem csoportos feladás</xs:documentation>
+																		<xs:documentation xml:lang="en">Not grouping entry</xs:documentation>
+																	</xs:annotation>
+																</xs:enumeration>
+																<xs:enumeration value="NG">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Csoportos feladás, de nincs hozzá tartozó GroupingLedger riport állomány</xs:documentation>
+																		<xs:documentation xml:lang="en">Grouping entry, but there is no GroupingLedger report</xs:documentation>
+																	</xs:annotation>
+																</xs:enumeration>
+																<xs:enumeration value="GL">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Csoportos feladás, van hozzá GroupingLedger riport állomány</xs:documentation>
+																		<xs:documentation xml:lang="en">Grouping entry, with corresponding GroupingLedger report</xs:documentation>
+																	</xs:annotation>
+																</xs:enumeration>
+															</xs:restriction>
+														</xs:simpleType>
 													</xs:element>
 												</xs:sequence>
 											</xs:complexType>

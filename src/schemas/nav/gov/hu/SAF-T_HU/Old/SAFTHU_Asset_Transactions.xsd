@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
+<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
 <xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
@@ -33,7 +34,7 @@
 												„TR” - fizetési adatok, 
 												„PS” - készlet adatok,
 												„MG” - készletmozgás adatok,
-												„AT” - gazdasági események adatai, 
+												„AS” - gazdasági események adatai, 
 												„VA” - ÁFA analitika,
 												„RD" - egyéb jelentési adatok</xs:documentation>
 											<xs:documentation xml:lang="en">Type of content that the file contains. Options: 
@@ -119,12 +120,6 @@ The values of the Entity , File Content (DataType) and period (PeriodStart – P
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Befektetett eszköz egyedi azonosítója</xs:documentation>
 															<xs:documentation xml:lang="en">A unique identifier of the asset</xs:documentation>
-														</xs:annotation>
-													</xs:element>
-													<xs:element name="Period" type="SAFTshorttextType" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation xml:lang="hu">Könyvelési időszak</xs:documentation>
-															<xs:documentation xml:lang="en">Accounting Period</xs:documentation>
 														</xs:annotation>
 													</xs:element>
 													<xs:element name="AssetTransactionType">
@@ -274,6 +269,52 @@ OD  -  Other decrease</xs:documentation>
 															<xs:documentation xml:lang="en">Asset transaction date</xs:documentation>
 														</xs:annotation>
 													</xs:element>
+													<xs:choice>
+														<xs:element name="Supplier" minOccurs="0">
+															<xs:annotation>
+																<xs:documentation xml:lang="hu">Befektetett eszköz szállítójának adatai</xs:documentation>
+																<xs:documentation xml:lang="en">Supplier Information</xs:documentation>
+															</xs:annotation>
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="SupplierName" type="SAFTmiddle2textType">
+																		<xs:annotation>
+																			<xs:documentation xml:lang="hu">Befektetett eszköz szállítójának neve</xs:documentation>
+																			<xs:documentation xml:lang="en">Supplier Name</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="SupplierID" type="SAFTmiddle1textType">
+																		<xs:annotation>
+																			<xs:documentation xml:lang="hu">Szállító egyedi azonosítója (a törzsadatok alapján)</xs:documentation>
+																			<xs:documentation xml:lang="en">Supplier id (should be on the suppliers master data structure)</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+														<xs:element name="Partner" minOccurs="0">
+															<xs:annotation>
+																<xs:documentation xml:lang="hu">Befektetett eszköz szállítójának adatai</xs:documentation>
+																<xs:documentation xml:lang="en">Supplier Information</xs:documentation>
+															</xs:annotation>
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="PartnerName" type="SAFTmiddle2textType">
+																		<xs:annotation>
+																			<xs:documentation xml:lang="hu">Eszköz szállítójának neve</xs:documentation>
+																			<xs:documentation xml:lang="en">Supplier Name</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="PartnerID" type="SAFTmiddle1textType">
+																		<xs:annotation>
+																			<xs:documentation xml:lang="hu">PArtner egyedi azonosítója (a törzsadatok alapján)</xs:documentation>
+																			<xs:documentation xml:lang="en">Supplier id (should be on the suppliers master data structure)</xs:documentation>
+																		</xs:annotation>
+																	</xs:element>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+													</xs:choice>
 													<xs:element name="TransactionID" type="SAFTmiddle2textType" minOccurs="0">
 														<xs:annotation>
 															<xs:documentation xml:lang="hu">Főkönyvi könyvelés egyedi azonosítója</xs:documentation>
@@ -310,31 +351,29 @@ OD  -  Other decrease</xs:documentation>
 																					</xs:restriction>
 																				</xs:simpleType>
 																			</xs:element>
-																			<xs:choice>
-																				<xs:element name="DebitAmount" type="SAFTmonetaryType">
-																					<xs:annotation>
-																						<xs:documentation xml:lang="hu">Befektetett eszközhöz kapcsolódó tranzakció nettó értéke a könyvelés pénznemében, például nettó eladási ár (tartozik összeg) </xs:documentation>
-																						<xs:documentation xml:lang="en">Net Amount of related asset transaction in the header's default currency, for instance the net sales revenue (debit amount)</xs:documentation>
-																					</xs:annotation>
-																				</xs:element>
-																				<xs:element name="CreditAmount" type="SAFTmonetaryType">
-																					<xs:annotation>
-																						<xs:documentation xml:lang="hu">Befektetett eszközhöz kapcsolódó tranzakció nettó értéke a könyvelés pénznemében, például nettó eladási ár (követel összeg) </xs:documentation>
-																						<xs:documentation xml:lang="en">Net Amount of related asset transaction in the header's default currency, for instance the net sales revenue (credit amount).</xs:documentation>
-																					</xs:annotation>
-																				</xs:element>
-																			</xs:choice>
+																			<xs:element name="AssetTransactionAmount" type="SAFTmonetaryType">
+																				<xs:annotation>
+																					<xs:documentation xml:lang="hu">Befektetett eszközhöz kapcsolódó tranzakció nettó értéke a könyvelés pénznemében, például nettó eladási ár.</xs:documentation>
+																					<xs:documentation xml:lang="en">Net Amount of related asset transaction in the header's default currency, for instance the net sales revenue.</xs:documentation>
+																				</xs:annotation>
+																			</xs:element>
+																			<xs:element name="DebitCreditIndicator">
+																				<xs:annotation>
+																					<xs:documentation xml:lang="hu">Tartozik-Követel jelölés (D - tartozik / C - követel)</xs:documentation>
+																					<xs:documentation xml:lang="en">Debit or credit attribute (D – debit / C – credit)</xs:documentation>
+																				</xs:annotation>
+																				<xs:simpleType>
+																					<xs:restriction base="SAFTcodeType">
+																						<xs:enumeration value="D"/>
+																						<xs:enumeration value="C"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
 																		</xs:sequence>
 																	</xs:complexType>
 																</xs:element>
 															</xs:sequence>
 														</xs:complexType>
-													</xs:element>
-													<xs:element name="SupplierInfo" type="SAFTHUSupplierInfoStructure" minOccurs="0">
-														<xs:annotation>
-															<xs:documentation xml:lang="hu">Szállítóadat </xs:documentation>
-															<xs:documentation xml:lang="en">Supplier data</xs:documentation>
-														</xs:annotation>
 													</xs:element>
 												</xs:sequence>
 											</xs:complexType>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2016 sp1 (x64) (http://www.altova.com) by NAV (Hungarian Tax Authority) -->
 <!-- Létrehozta a Nemzeti Adó és Vámhivatal -->
+<!-- Ez egy részsablon. A SAFT_HU__Integrated_mod_0316.xsd szerinti adattartalommal -->
 <xs:schema xmlns="http://schemas.nav.gov.hu/SAFT_HU/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.nav.gov.hu/SAFT_HU/1.0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00" id="SAFT-HU">
 	<!-- SAFTHU definitions, data types and OECD guideline compatibility -->
 	<xs:include schemaLocation="./SAFT_HU_Definitions.xsd"/>
@@ -33,7 +34,7 @@
 												„TR” - fizetési adatok, 
 												„PS” - készlet adatok,
 												„MG” - készletmozgás adatok,
-												„AT” - gazdasági események adatai, 
+												„AS” - gazdasági események adatai, 
 												„VA” - ÁFA analitika,
 												„RD" - egyéb jelentési adatok</xs:documentation>
 											<xs:documentation xml:lang="en">Type of content that the file contains. Options: 
@@ -229,20 +230,12 @@ Not used when there is exactly 1 PhysicalStock entry per ProductCode</xs:documen
 														</xs:annotation>
 														<xs:complexType>
 															<xs:sequence>
-																<xs:choice>
-																	<xs:element name="DebitQuantity" type="SAFTquantityType">
-																		<xs:annotation>
-																			<xs:documentation xml:lang="hu">Termék mennyisége (tartozik) </xs:documentation>
-																			<xs:documentation xml:lang="en">Quantity of goods (debit).</xs:documentation>
-																		</xs:annotation>
-																	</xs:element>
-																	<xs:element name="CreditQuantity" type="SAFTquantityType">
-																		<xs:annotation>
-																			<xs:documentation xml:lang="hu">Termék mennyisége (követel) </xs:documentation>
-																			<xs:documentation xml:lang="en">Quantity of goods (credit).</xs:documentation>
-																		</xs:annotation>
-																	</xs:element>
-																</xs:choice>
+																<xs:element name="Quantity" type="SAFTquantityType">
+																	<xs:annotation>
+																		<xs:documentation xml:lang="hu">Termék mennyisége abszulut értékben</xs:documentation>
+																		<xs:documentation xml:lang="en">Quantity of goods</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
 																<xs:element name="UnitOfMeasure" type="SAFTcodeType">
 																	<xs:annotation>
 																		<xs:documentation xml:lang="hu">Mennyiségi egység (pl. kg, m, db stb.)</xs:documentation>
@@ -258,10 +251,10 @@ Not used when there is exactly 1 PhysicalStock entry per ProductCode</xs:documen
 															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
-													<xs:element name="Value" type="SAFTmonetaryType">
+													<xs:element name="Price" type="SAFTmonetaryType">
 														<xs:annotation>
-															<xs:documentation xml:lang="hu">Érték a könyvelés pénznemében.</xs:documentation>
-															<xs:documentation xml:lang="en">Value for this stock account in the header's default currency.</xs:documentation>
+															<xs:documentation xml:lang="hu">Ár a könyvelés pénznemében.</xs:documentation>
+															<xs:documentation xml:lang="en">Base Unit price for this stock account in the header's default currency.</xs:documentation>
 														</xs:annotation>
 													</xs:element>
 													<xs:element name="StockCharacteristics" minOccurs="0">
@@ -284,126 +277,6 @@ Eg. colour, pack size, etc.</xs:documentation>
 																		<xs:documentation xml:lang="en">Stock characteristic value for specifying the colour, pack sige etc.
 Eg. Blue, Size XL, etc.</xs:documentation>
 																	</xs:annotation>
-																</xs:element>
-															</xs:sequence>
-														</xs:complexType>
-													</xs:element>
-												</xs:sequence>
-											</xs:complexType>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="PhysicalStockDetails" minOccurs="0">
-								<xs:annotation>
-									<xs:documentation xml:lang="hu">Készletérték részletek</xs:documentation>
-									<xs:documentation xml:lang="en">Physical Stock Details</xs:documentation>
-								</xs:annotation>
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="NumberofEntries" type="xs:nonNegativeInteger">
-											<xs:annotation>
-												<xs:documentation xml:lang="hu">Bejegyzések száma </xs:documentation>
-												<xs:documentation xml:lang="en">Number of entries</xs:documentation>
-											</xs:annotation>
-										</xs:element>
-										<xs:element name="PhysicalStockDetailsEntries">
-											<xs:annotation>
-												<xs:documentation xml:lang="hu">Készletadat bejegyzések</xs:documentation>
-												<xs:documentation xml:lang="en">Stockdetails entres</xs:documentation>
-											</xs:annotation>
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element name="PhysicalStockDetailsEntry" maxOccurs="unbounded">
-														<xs:annotation>
-															<xs:documentation xml:lang="hu">Készletadat bejegyzés </xs:documentation>
-															<xs:documentation xml:lang="en">Stockdetails entry</xs:documentation>
-														</xs:annotation>
-														<xs:complexType>
-															<xs:sequence>
-																<xs:element name="StockDetailReference" type="SAFTmiddle2textType">
-																	<xs:annotation>
-																		<xs:documentation xml:lang="hu">Társaság által generált egyedi azonosító, amely a StockMovementLines adataira hivatkozik (egyedi azonosító pl. boltazonosító + cikkcsoport + feladás dátuma)</xs:documentation>
-																		<xs:documentation xml:lang="en">/ Unique identifier generated by the company, referring to StockMovementLines data (eg. unique identifier = shopID + product group + posting date).</xs:documentation>
-																	</xs:annotation>
-																</xs:element>
-																<xs:element name="ProductGroup" type="SAFTmiddle2textType">
-																	<xs:annotation>
-																		<xs:documentation xml:lang="hu">Társaság által használt cikkcsoport, melybe az adott cikk tartozik</xs:documentation>
-																		<xs:documentation xml:lang="en">Code identifying aggregated level at which similar products are grouped.</xs:documentation>
-																	</xs:annotation>
-																</xs:element>
-																<xs:element name="Products">
-																	<xs:annotation>
-																		<xs:documentation xml:lang="hu">Termékek</xs:documentation>
-																		<xs:documentation xml:lang="en">Products</xs:documentation>
-																	</xs:annotation>
-																	<xs:complexType>
-																		<xs:sequence>
-																			<xs:element name="Product" maxOccurs="unbounded">
-																				<xs:annotation>
-																					<xs:documentation xml:lang="hu">Termék</xs:documentation>
-																					<xs:documentation xml:lang="en">Pruduct</xs:documentation>
-																				</xs:annotation>
-																				<xs:complexType>
-																					<xs:sequence>
-																						<xs:annotation>
-																							<xs:documentation xml:lang="hu"/>
-																							<xs:documentation xml:lang="en"/>
-																						</xs:annotation>
-																						<xs:element name="ProductCode" type="SAFTmiddle2textType">
-																							<xs:annotation>
-																								<xs:documentation>Társaság által használt cikk-kód </xs:documentation>
-																								<xs:documentation>Product code using by the company</xs:documentation>
-																							</xs:annotation>
-																						</xs:element>
-																						<xs:element name="Description" type="SAFTlongtextType">
-																							<xs:annotation>
-																								<xs:documentation>Cikk megnevezése, vagy leírása </xs:documentation>
-																								<xs:documentation>Description of the product</xs:documentation>
-																							</xs:annotation>
-																						</xs:element>
-																						<xs:element name="Quantity" minOccurs="0">
-																							<xs:annotation>
-																								<xs:documentation xml:lang="hu">Termékmennyiség adatok</xs:documentation>
-																								<xs:documentation xml:lang="en">Product quantity data</xs:documentation>
-																							</xs:annotation>
-																							<xs:complexType>
-																								<xs:sequence>
-																									<xs:choice>
-																										<xs:element name="DebitQuantity" type="SAFTquantityType">
-																											<xs:annotation>
-																												<xs:documentation xml:lang="hu">Cikk tartozik mennyisége mennyiségi egységben kifejezve</xs:documentation>
-																												<xs:documentation xml:lang="en">Debit quantity of the product in UOM</xs:documentation>
-																											</xs:annotation>
-																										</xs:element>
-																										<xs:element name="CreditQuantity" type="SAFTquantityType">
-																											<xs:annotation>
-																												<xs:documentation xml:lang="hu">Cikk követel mennyisége mennyiségi egységben kifejezve</xs:documentation>
-																												<xs:documentation xml:lang="en">Credit quantity of the product in UOM.</xs:documentation>
-																											</xs:annotation>
-																										</xs:element>
-																									</xs:choice>
-																									<xs:element name="UnitOfMeasure" type="SAFTcodeType">
-																										<xs:annotation>
-																											<xs:documentation xml:lang="hu">Mennyiségi egység (pl. kg, m, db, stb.) </xs:documentation>
-																											<xs:documentation xml:lang="en">Unit of measure (eg. Kg, Un, To, etc.).</xs:documentation>
-																										</xs:annotation>
-																									</xs:element>
-																								</xs:sequence>
-																							</xs:complexType>
-																						</xs:element>
-																						<xs:element name="Value" type="SAFTmonetaryType" minOccurs="0">
-																							<xs:annotation>
-																								<xs:documentation xml:lang="hu">A számviteli politika szerinti, nyilvántartási értékkel egyező cikkérték (eladási, beszerzési, stb.). </xs:documentation>
-																								<xs:documentation xml:lang="en">/ Value of the product based on the accounting policy.</xs:documentation>
-																							</xs:annotation>
-																						</xs:element>
-																					</xs:sequence>
-																				</xs:complexType>
-																			</xs:element>
-																		</xs:sequence>
-																	</xs:complexType>
 																</xs:element>
 															</xs:sequence>
 														</xs:complexType>
@@ -539,12 +412,25 @@ Eg. Blue, Size XL, etc.</xs:documentation>
 																					<xs:documentation xml:lang="en">Description or comment of the transaction</xs:documentation>
 																				</xs:annotation>
 																			</xs:element>
-																			<xs:element name="PartnerInfo" type="SAFTHUPartnerInfoStructure" minOccurs="0">
-																				<xs:annotation>
-																					<xs:documentation xml:lang="hu">Partneradat</xs:documentation>
-																					<xs:documentation xml:lang="en">Partner data</xs:documentation>
-																				</xs:annotation>
-																			</xs:element>
+																			<xs:choice>
+																				<xs:element name="CustomerID" type="SAFTmiddle1textType" minOccurs="0">
+																					<xs:annotation>
+																						<xs:documentation xml:lang="hu">Vevő egyedi azonosítója</xs:documentation>
+																						<xs:documentation xml:lang="en">Unique code for the customer</xs:documentation>
+																					</xs:annotation>
+																				</xs:element>
+																				<xs:element name="SupplierID" type="SAFTmiddle1textType" minOccurs="0">
+																					<xs:annotation>
+																						<xs:documentation xml:lang="hu">Szállító egyedi azonosítója</xs:documentation>
+																						<xs:documentation xml:lang="en">Unique code for the supplier</xs:documentation>
+																					</xs:annotation>
+																				</xs:element>
+																				<xs:element name="PartnerID" type="SAFTmiddle1textType" minOccurs="0">
+																					<xs:annotation>
+																						<xs:documentation>PArtner egyedi azonosítója</xs:documentation>
+																					</xs:annotation>
+																				</xs:element>
+																			</xs:choice>
 																		</xs:sequence>
 																	</xs:complexType>
 																</xs:element>
@@ -596,14 +482,14 @@ Eg. Blue, Size XL, etc.</xs:documentation>
 																		<xs:documentation xml:lang="en">Source document serial number or identifier</xs:documentation>
 																	</xs:annotation>
 																</xs:element>
-																<xs:choice minOccurs="0">
-																	<xs:element name="DebitAmount" type="AmountStructure" minOccurs="0">
+																<xs:choice>
+																	<xs:element name="DebitAmount" type="AmountStructure">
 																		<xs:annotation>
 																			<xs:documentation xml:lang="hu">Forrásbizonylat tartozik összege</xs:documentation>
 																			<xs:documentation xml:lang="en">Debit amount of source document</xs:documentation>
 																		</xs:annotation>
 																	</xs:element>
-																	<xs:element name="CreditAmount" type="AmountStructure" minOccurs="0">
+																	<xs:element name="CreditAmount" type="AmountStructure">
 																		<xs:annotation>
 																			<xs:documentation xml:lang="hu">Forrásbizonylat követel összege</xs:documentation>
 																			<xs:documentation xml:lang="en">Credit amount of source document</xs:documentation>
